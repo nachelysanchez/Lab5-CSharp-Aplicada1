@@ -24,25 +24,29 @@ namespace RolesControl2._0.DAL
             {
                 PermisoId = 1,
                 Nombre = "Permiso para estudios",
-                Descripcion = "Permiso para que el trabajador pueda estudiar"
+                Descripcion = "Permiso para que el trabajador pueda estudiar",
+                VecesAsignado = 0
             });
             modelBuilder.Entity<Permisos>().HasData(new Permisos
             {
                 PermisoId = 2,
                 Nombre = "Permiso por matrimonio",
-                Descripcion = "Permiso para poder celebrar"
+                Descripcion = "Permiso para poder celebrar",
+                VecesAsignado = 0
             });
             modelBuilder.Entity<Permisos>().HasData(new Permisos
             {
                 PermisoId = 3,
                 Nombre = "Permiso por perdidas",
-                Descripcion = "Permiso para poder darle el ultimo adios a su ser querido"
+                Descripcion = "Permiso para poder darle el ultimo adios a su ser querido",
+                VecesAsignado = 0
             });
             modelBuilder.Entity<Permisos>().HasData(new Permisos
             {
                 PermisoId = 4,
                 Nombre = "Permiso por alumbramiento",
-                Descripcion = "Permiso para poder disfrutar la criatura"
+                Descripcion = "Permiso para poder disfrutar la criatura", 
+                VecesAsignado = 0
             });
         }
     }

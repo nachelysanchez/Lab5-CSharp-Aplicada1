@@ -1,4 +1,5 @@
 ﻿using RolesControl2._0.BLL;
+using RolesControl2._0.DAL;
 using RolesControl2._0.Entidades;
 using System;
 using System.Collections.Generic;
@@ -87,7 +88,7 @@ namespace RolesControl2._0.UI.Registros
             if (encontrado != null)
             {
                 rol = encontrado;
-                permiso = pencontrado;
+                TotalTextBlock.Text = pencontrado.VecesAsignado.ToString();
                 Cargar();
             }
             else
@@ -152,24 +153,29 @@ namespace RolesControl2._0.UI.Registros
 
         private void AgregarFilaButton_Click(object sender, RoutedEventArgs e)
         {
+            Contexto contexto = new Contexto();
+
             if (!Validar())
                 return;
             rol.RolesDetalle.Add(new RolesDetalle(rol.RolId, (int)PermisosComboBox.SelectedValue, PermisosComboBox.Text.ToString() ,ActivoCheckBox.IsEnabled));
 
             Cargar();
-            TotalSum();
+            foreach (var item in rol.RolesDetalle)
+            {
+                total = contexto.Permisos.Find(item.PermisoId).VecesAsignado;
+            }
             string TotalPermiso = total.ToString();
-            permiso.VecesAsignado = total;
+
             string permiso0 = cantidad0.ToString();
             string permiso1 = cantidad1.ToString();
             string permiso2 = cantidad2.ToString();
             string permiso3 = cantidad3.ToString();
 
             TotalTextBlock.Text = TotalPermiso;
-            P0TextBlock.Text = permiso0;
-            P1TextBlock.Text = permiso1;
-            P2TextBlock.Text = permiso2;
-            P3TextBlock.Text = permiso3;
+            //P0TextBlock.Text = permiso0;
+            //P1TextBlock.Text = permiso1;
+            //P2TextBlock.Text = permiso2;
+            //P3TextBlock.Text = permiso3;
         }
 
         private void RemoverFilaButton_Click(object sender, RoutedEventArgs e)
@@ -204,26 +210,5 @@ namespace RolesControl2._0.UI.Registros
                 cantidad3++;
             }
         }
-        //private int SumaPermisos()
-        //{
-        //    int[] permisos = { 0, 1, 2, 3 };
-        //    if (PermisosComboBox.SelectedIndex == permisos[0])
-        //    {
-        //        return (Cantidad0++);
-        //    }
-        //    else if (PermisosComboBox.SelectedIndex == permisos[1])
-        //    {
-        //        return (Cantidad1++);
-        //    }
-        //    else if (PermisosComboBox.SelectedIndex == permisos[2])
-        //    {
-        //        return (Cantidad2++);
-        //    }
-        //    else if (PermisosComboBox.SelectedIndex == permisos[3])
-        //    {
-        //        return (Cantidad3++);
-        //    }
-        //    return 0;
-        //}
     }
 }

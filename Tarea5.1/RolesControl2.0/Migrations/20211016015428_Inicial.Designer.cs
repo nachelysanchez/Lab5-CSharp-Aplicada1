@@ -8,8 +8,8 @@ using RolesControl2._0.DAL;
 namespace RolesControl2._0.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20211015041118_Migracion_Inicial")]
-    partial class Migracion_Inicial
+    [Migration("20211016015428_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

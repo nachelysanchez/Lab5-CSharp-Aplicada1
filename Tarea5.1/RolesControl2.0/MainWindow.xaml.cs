@@ -1,4 +1,5 @@
-﻿using RolesControl2._0.UI.Registros;
+﻿using RolesControl2._0.UI.Consultas;
+using RolesControl2._0.UI.Registros;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,8 @@ namespace RolesControl2._0
 
         private void ConsultaRolesMenuItem_Click(object sender, RoutedEventArgs e)
         {
-
+            cRoles rol = new cRoles();
+            rol.Show();
         }
     }
 }

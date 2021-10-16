@@ -27,6 +27,10 @@ namespace RolesControl2._0.BLL
             try
             {
                 //Agregar la entidad que se desea insertar al contexto
+                foreach (var item in rol.RolesDetalle)
+                {
+                    contexto.Permisos.Find(item.PermisoId).VecesAsignado += 1;
+                }
                 contexto.Roles.Add(rol);
                 paso = contexto.SaveChanges() > 0;
             }
@@ -52,6 +56,7 @@ namespace RolesControl2._0.BLL
 
                 foreach (var item in rol.RolesDetalle)
                 {
+                    contexto.Permisos.Find(item.PermisoId).VecesAsignado += 1;
                     contexto.Entry(item).State = EntityState.Added;
                 }
 
@@ -81,6 +86,10 @@ namespace RolesControl2._0.BLL
 
                 if (rol != null)
                 {
+                    foreach (var item in rol.RolesDetalle)
+                    {
+                        contexto.Permisos.Find(item.PermisoId).VecesAsignado -= 1;
+                    }
                     contexto.Roles.Remove(rol); //remover la entidad
                     paso = contexto.SaveChanges() > 0;
                 }
@@ -146,6 +155,26 @@ namespace RolesControl2._0.BLL
             {
                 //obtener la lista y filtrarla según el criterio recibido por parametro.
                 Lista = contexto.Roles.Where(criterio).ToList();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                contexto.Dispose();
+            }
+            return Lista;
+        }
+        public static List<Roles> GetRoles()
+        {
+            List<Roles> Lista = new List<Roles>();
+            Contexto contexto = new Contexto();
+
+            try
+            {
+                //obtener la lista y filtrarla según el criterio recibido por parametro.
+                Lista = contexto.Roles.ToList();
             }
             catch (Exception)
             {
