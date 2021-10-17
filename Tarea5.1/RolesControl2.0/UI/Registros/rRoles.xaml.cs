@@ -25,7 +25,7 @@ namespace RolesControl2._0.UI.Registros
         private Roles rol = new Roles();
         private Permisos permiso = new Permisos();
 
-        public int total = 0;
+        public decimal total = 0;
         public int cantidad0 = 0;
         public int cantidad1 = 0;
         public int cantidad2;
@@ -49,8 +49,6 @@ namespace RolesControl2._0.UI.Registros
         {
             this.rol = new Roles();
             this.DataContext = rol;
-            this.permiso = new Permisos();
-            this.DataContext = permiso;
         }
         private bool Validar()
         {
@@ -83,13 +81,14 @@ namespace RolesControl2._0.UI.Registros
         private void BuscarButton_Click(object sender, RoutedEventArgs e)
         {
             Roles encontrado = RolesBLL.Buscar(rol.RolId);
-            Permisos pencontrado = PermisosBLL.Buscar(permiso.PermisoId);
 
             if (encontrado != null)
             {
                 rol = encontrado;
-                TotalTextBlock.Text = pencontrado.VecesAsignado.ToString();
                 Cargar();
+                int totalp = RolesBLL.Total(rol);
+                string TotalPermiso = totalp.ToString();
+                TotalTextBlock.Text = TotalPermiso;
             }
             else
             {
@@ -160,22 +159,10 @@ namespace RolesControl2._0.UI.Registros
             rol.RolesDetalle.Add(new RolesDetalle(rol.RolId, (int)PermisosComboBox.SelectedValue, PermisosComboBox.Text.ToString() ,ActivoCheckBox.IsEnabled));
 
             Cargar();
-            foreach (var item in rol.RolesDetalle)
-            {
-                total = contexto.Permisos.Find(item.PermisoId).VecesAsignado;
-            }
-            string TotalPermiso = total.ToString();
-
-            string permiso0 = cantidad0.ToString();
-            string permiso1 = cantidad1.ToString();
-            string permiso2 = cantidad2.ToString();
-            string permiso3 = cantidad3.ToString();
+            int totalp = RolesBLL.Total(rol);
+            string TotalPermiso = totalp.ToString();
 
             TotalTextBlock.Text = TotalPermiso;
-            //P0TextBlock.Text = permiso0;
-            //P1TextBlock.Text = permiso1;
-            //P2TextBlock.Text = permiso2;
-            //P3TextBlock.Text = permiso3;
         }
 
         private void RemoverFilaButton_Click(object sender, RoutedEventArgs e)

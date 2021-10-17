@@ -12,6 +12,17 @@ namespace RolesControl2._0.BLL
 {
     public class RolesBLL
     {
+        public static int Total(Roles rol)
+        {
+            Contexto contexto = new Contexto();
+            int total = 0;
+            foreach (var item in rol.RolesDetalle)
+            {
+                var permiso = contexto.Permisos.Find(item.PermisoId);
+                total += permiso.VecesAsignado;
+            }
+            return total;
+        }
         public static bool Guardar(Roles rol)
         {
             if (!Existe(rol.RolId))//si no existe insertamos
@@ -29,7 +40,8 @@ namespace RolesControl2._0.BLL
                 //Agregar la entidad que se desea insertar al contexto
                 foreach (var item in rol.RolesDetalle)
                 {
-                    contexto.Permisos.Find(item.PermisoId).VecesAsignado += 1;
+                    var permiso = contexto.Permisos.Find(item.PermisoId);
+                    permiso.VecesAsignado += 1;
                 }
                 contexto.Roles.Add(rol);
                 paso = contexto.SaveChanges() > 0;
@@ -46,17 +58,24 @@ namespace RolesControl2._0.BLL
         }
         private static bool Modificar(Roles rol)
         {
+            int total = 0;
             bool paso = false;
             Contexto contexto = new Contexto();
 
             try
             {
+                foreach(var item in rol.RolesDetalle)
+                {
+                    total += contexto.Permisos.Find(item.PermisoId).VecesAsignado;
+                }
+
                 //busca la entidad en la base de datos y la elimina
                 contexto.Database.ExecuteSqlRaw($"Delete FROM RolesDetalle Where RolId={rol.RolId}");
-
+                
                 foreach (var item in rol.RolesDetalle)
                 {
-                    contexto.Permisos.Find(item.PermisoId).VecesAsignado += 1;
+                    var permiso = contexto.Permisos.Find(item.PermisoId);
+                    permiso.VecesAsignado += 1;
                     contexto.Entry(item).State = EntityState.Added;
                 }
 
@@ -88,7 +107,8 @@ namespace RolesControl2._0.BLL
                 {
                     foreach (var item in rol.RolesDetalle)
                     {
-                        contexto.Permisos.Find(item.PermisoId).VecesAsignado -= 1;
+                        var permiso = contexto.Permisos.Find(item.PermisoId);
+                        permiso.VecesAsignado -= 1;
                     }
                     contexto.Roles.Remove(rol); //remover la entidad
                     paso = contexto.SaveChanges() > 0;

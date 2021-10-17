@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RolesControl2._0.UI.Registros"
         mc:Ignorable="d"
-        Title="Registro de Roles" Height="600" Width="550">
+        Title="Registro de Roles" Height="490" Width="550">
     <Grid>
         <StackPanel Margin="10">
             <StackPanel Orientation="Horizontal">
@@ -49,26 +49,11 @@
                                 <DataGridTextColumn Header="Es Asignado" Binding="{Binding esAsignado}"/>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <StackPanel HorizontalAlignment="Center">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Label Content="Cantidad permisos agregados:" />
-                            <TextBlock x:Name="TotalTextBlock" Text="{Binding VecesAsignado}"/>
+                            <TextBlock x:Name="TotalTextBlock"/>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Permiso para estudiar"/>
-                            <TextBlock x:Name="P0TextBlock" />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Permiso por matrimonio"/>
-                            <TextBlock x:Name="P1TextBlock"  />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Permiso por perdidas"/>
-                            <TextBlock x:Name="P2TextBlock" />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="Permiso por alumbramiento"/>
-                            <TextBlock x:Name="P3TextBlock" />
-                        </StackPanel>
+    
                     </StackPanel>
                 </GroupBox>
             </StackPanel>

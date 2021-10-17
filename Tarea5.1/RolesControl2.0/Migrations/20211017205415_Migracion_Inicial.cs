@@ -2,7 +2,7 @@
 
 namespace RolesControl2._0.Migrations
 {
-    public partial class Inicial : Migration
+    public partial class Migracion_Inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
